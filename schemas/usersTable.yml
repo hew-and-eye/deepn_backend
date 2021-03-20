@@ -1,0 +1,48 @@
+users:
+  Type: AWS::DynamoDB::Table
+  Properties:
+    TableName: MBL_USERS
+    AttributeDefinitions:
+      - AttributeName: id
+        AttributeType: S
+      - AttributeName: username
+        AttributeType: S
+      - AttributeName: password
+        AttributeType: S
+      - AttributeName: org_id
+        AttributeType: S
+    KeySchema:
+      - AttributeName: id
+        KeyType: HASH
+    GlobalSecondaryIndexes:
+      - IndexName: Username
+        KeySchema:
+          - AttributeName: username
+            KeyType: HASH
+        Projection:
+          ProjectionType: ALL
+      - IndexName: Password
+        KeySchema:
+          - AttributeName: password
+            KeyType: HASH
+        Projection:
+          ProjectionType: ALL
+      - IndexName: NameSearch
+        KeySchema:
+          - AttributeName: id
+            KeyType: HASH
+          - AttributeName: username
+            KeyType: RANGE
+        Projection:
+          ProjectionType: ALL
+      - IndexName: NameOrgSearch
+        KeySchema:
+          - AttributeName: org_id
+            KeyType: HASH
+          - AttributeName: username
+            KeyType: RANGE
+        Projection:
+          ProjectionType: ALL
+    BillingMode: PAY_PER_REQUEST
+    SSESpecification:
+      SSEEnabled: true

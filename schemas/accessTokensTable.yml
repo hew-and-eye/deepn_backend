@@ -1,0 +1,30 @@
+access_tokens:
+  Type: AWS::DynamoDB::Table
+  Properties:
+    TableName: MBL_ACCESS_TOKENS
+    AttributeDefinitions:
+      - AttributeName: user_id
+        AttributeType: S
+      - AttributeName: access_token
+        AttributeType: S
+      - AttributeName: expires_at
+        AttributeType: S
+    KeySchema:
+      - AttributeName: user_id
+        KeyType: HASH
+    GlobalSecondaryIndexes:
+      - IndexName: AccessToken
+        KeySchema:
+          - AttributeName: access_token
+            KeyType: HASH
+        Projection:
+          ProjectionType: ALL
+      - IndexName: ExpiresAt
+        KeySchema:
+          - AttributeName: expires_at
+            KeyType: HASH
+        Projection:
+          ProjectionType: ALL
+    BillingMode: PAY_PER_REQUEST
+    SSESpecification:
+      SSEEnabled: true
