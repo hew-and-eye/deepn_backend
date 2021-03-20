@@ -1,14 +1,15 @@
 import boto3
 import uuid
 from json import loads
-
-from functions.get_user import handler as get_user
+from boto3.dynamodb.conditions import Key
 
 dynamodb = boto3.client("dynamodb")
-TABLE_NAME = "DEEPN_USERS"
+TASK_TABLE_NAME = "DEEPN_MODULES"
+ACCESS_TABLE_NAME = "DEEPN_ACCESS_RIGHTS"
 
 
 def handler(event, context):
-    name = event["body"]["name"]
-    return {name : "hello {}".format(name)}
+    
+    
+    return {name : "hello"}
 
