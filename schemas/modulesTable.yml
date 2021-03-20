@@ -1,0 +1,30 @@
+modules:
+  Type: AWS::DynamoDB::Table
+  Properties:
+    TableName: DEEPN_MODULES
+    AttributeDefinitions:
+      - AttributeName: id
+        AttributeType: S
+      - AttributeName: name
+        AttributeType: S
+      - AttributeName: owner
+        AttributeType: S
+    KeySchema:
+      - AttributeName: id
+        KeyType: HASH
+    GlobalSecondaryIndexes:
+      - IndexName: Name
+        KeySchema:
+          - AttributeName: name
+            KeyType: HASH
+        Projection:
+          ProjectionType: ALL
+      - IndexName: Owner
+        KeySchema:
+          - AttributeName: owner
+            KeyType: HASH
+        Projection:
+          ProjectionType: ALL
+    BillingMode: PAY_PER_REQUEST
+    SSESpecification:
+      SSEEnabled: true

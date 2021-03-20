@@ -20,6 +20,7 @@ provider:
         - dynamodb:BatchGetItem
         - dynamodb:Scan
       Resource:
+        - arn:aws:dynamodb:${self:provider.region}:#{AWS::AccountId}:table/DEEPN_MODULES*
         - arn:aws:dynamodb:${self:provider.region}:#{AWS::AccountId}:table/DEEPN_USERS*
         - arn:aws:dynamodb:${self:provider.region}:#{AWS::AccountId}:table/DEEPN_TASKS*
         - arn:aws:dynamodb:${self:provider.region}:#{AWS::AccountId}:table/DEEPN_ACCESS_RIGHTS*
@@ -227,6 +228,7 @@ functions:
 resources:
   Resources:
     usersTable: ${file(schemas/usersTable.yml):users}
+    modulesTable: ${file(schemas/modulesTable.yml):modules}
     accessTokensTable: ${file(schemas/accessTokensTable.yml):access_tokens}
     tasksTable: ${file(schemas/tasksTable.yml):tasks}
     accessRightsTable: ${file(schemas/accessRightsTable.yml):access_rights}
