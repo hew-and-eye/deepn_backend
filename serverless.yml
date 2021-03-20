@@ -156,7 +156,6 @@ functions:
           method: post
           integration: lambda
           path: create-module
-          authorizer: *authorizer
           cors: true
   getModule:
     handler: functions/get_module.handler
@@ -166,7 +165,6 @@ functions:
           method: post
           integration: lambda
           path: get-module
-          authorizer: *authorizer
           cors: true
   findModules:
     handler: functions/find_modules.handler
@@ -176,7 +174,7 @@ functions:
           method: post
           integration: lambda
           path: find-modules
-          authorizer: *authorizer
+
           cors: true
   updateModule:
     handler: functions/update_module.handler
@@ -186,7 +184,6 @@ functions:
           method: post
           integration: lambda
           path: update-module
-          authorizer: *authorizer
           cors: true
   getKnowledgeMapData:
     handler: functions/get_knowledge_map_data.handler
@@ -196,7 +193,6 @@ functions:
           method: post
           integration: lambda
           path: get-knowledge-map-data
-          authorizer: *authorizer
           cors: true
   getCollection:
     handler: functions/get_collection.handler
@@ -206,7 +202,6 @@ functions:
           method: post
           integration: lambda
           path: get-collection
-          authorizer: *authorizer
           cors: true
   updateCollection:
     handler: functions/update_collection.handler
@@ -216,7 +211,6 @@ functions:
           method: post
           integration: lambda
           path: update-collection
-          authorizer: *authorizer
           cors: true
 
   login:
