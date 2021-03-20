@@ -9,7 +9,7 @@ def handler(event, context):
     print(access_token)
     if access_token:
         sm = SecretsManager()
-        jwt_key = sm["TEAMO"]["JWT_PRIVATE_KEY"]
+        jwt_key = sm["DEEPN"]["JWT_PRIVATE_KEY"]
         decoded_jwt = jwt.decode(access_token, jwt_key, algorithms=["HS256"])
         # Create IAM policy document
         return {

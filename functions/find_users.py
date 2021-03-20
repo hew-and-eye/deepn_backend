@@ -3,7 +3,7 @@ import uuid
 from json import loads
 
 dynamodb = boto3.client("dynamodb")
-TABLE_NAME = "MBL_USERS"
+TABLE_NAME = "DEEPN_USERS"
 
 
 def handler(event, context, include_password=False):
@@ -16,7 +16,7 @@ def handler(event, context, include_password=False):
             attribute_values = {
                 ":lower_bound": _format(username + "aaaaaaaa"),
                 ":upper_bound": _format(username + "zzzzzzzzz"),
-                ":org_id": _format("test_teamo_org"),
+                ":org_id": _format("test_deepn_org"),
             }
             expression = "org_id=:org_id AND #username BETWEEN :lower_bound AND :upper_bound"
             index_name = "NameOrgSearch"

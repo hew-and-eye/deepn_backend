@@ -7,8 +7,8 @@ from boto3.dynamodb.conditions import Key
 
 dynamodb = boto3.client("dynamodb")
 QR_ENDPOINT = os.getenv("qrEndpoint")
-TASK_TABLE_NAME = "MBL_TASKS"
-ACCESS_TABLE_NAME = "TEAMO_ACCESS_RIGHTS"
+TASK_TABLE_NAME = "DEEPN_TASKS"
+ACCESS_TABLE_NAME = "DEEPN_ACCESS_RIGHTS"
 
 
 def handler(event, context):

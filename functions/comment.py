@@ -4,7 +4,7 @@ import uuid
 from functions.share_task import handler as share_task
 
 dynamodb = boto3.client("dynamodb")
-TABLE_NAME = "MBL_TASKS"
+TABLE_NAME = "DEEPN_TASKS"
 
 
 def handler(event, context):

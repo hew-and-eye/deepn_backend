@@ -5,7 +5,7 @@ from json import loads
 from functions.get_user import handler as get_user
 
 dynamodb = boto3.client("dynamodb")
-TABLE_NAME = "MBL_USERS"
+TABLE_NAME = "DEEPN_USERS"
 
 
 def handler(event, context):
@@ -25,7 +25,7 @@ def handler(event, context):
             TableName=TABLE_NAME,
             Item={
                 "id": _format(id),
-                "org_id": _format("test_teamo_org"),
+                "org_id": _format("test_deepn_org"),
                 "username": _format(body["username"]),
                 "password": _format(
                     body["password"]

@@ -1,7 +1,7 @@
 tasks:
   Type: AWS::DynamoDB::Table
   Properties:
-    TableName: MBL_TASKS
+    TableName: DEEPN_TASKS
     AttributeDefinitions:
       - AttributeName: id
         AttributeType: S

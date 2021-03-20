@@ -1,7 +1,7 @@
 users:
   Type: AWS::DynamoDB::Table
   Properties:
-    TableName: MBL_USERS
+    TableName: DEEPN_USERS
     AttributeDefinitions:
       - AttributeName: id
         AttributeType: S

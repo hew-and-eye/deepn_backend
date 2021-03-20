@@ -9,7 +9,7 @@ from functions.store_jwt import handler as store_jwt
 from functions.get_user import handler as get_user
 
 dynamodb = boto3.client("dynamodb")
-USER_TABLE = "MBL_USERS"
+USER_TABLE = "DEEPN_USERS"
 
 
 def handler(event, context):
@@ -47,7 +47,7 @@ def _format(value, type="S"):
 
 def _generate_jwt(user):
     sm = SecretsManager()
-    jwt_key = sm["TEAMO"]["JWT_PRIVATE_KEY"]
+    jwt_key = sm["DEEPN"]["JWT_PRIVATE_KEY"]
     access_token = jwt.encode(
         {
             "exp": datetime.datetime.utcnow() + datetime.timedelta(hours=6),

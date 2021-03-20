@@ -3,7 +3,7 @@ import uuid
 from json import loads
 
 dynamodb = boto3.client("dynamodb")
-TABLE_NAME = "TEAMO_ACCESS_RIGHTS"
+TABLE_NAME = "DEEPN_ACCESS_RIGHTS"
 
 
 def handler(event, context):

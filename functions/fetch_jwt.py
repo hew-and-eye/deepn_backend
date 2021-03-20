@@ -1,7 +1,7 @@
 import boto3
 
 dynamodb = boto3.client("dynamodb")
-TABLE_NAME = "MBL_ACCESS_TOKENS"
+TABLE_NAME = "DEEPN_ACCESS_TOKENS"
 
 # This function could be better named. It purpose isn't to fetch the JWT, but to validate that the JWT exists.
 def handler(event, context):

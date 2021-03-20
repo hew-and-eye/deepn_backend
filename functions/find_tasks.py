@@ -4,8 +4,8 @@ from json import loads
 from boto3.dynamodb.conditions import Key
 
 dynamodb = boto3.client("dynamodb")
-TASK_TABLE_NAME = "MBL_TASKS"
-ACCESS_TABLE_NAME = "TEAMO_ACCESS_RIGHTS"
+TASK_TABLE_NAME = "DEEPN_TASKS"
+ACCESS_TABLE_NAME = "DEEPN_ACCESS_RIGHTS"
 
 
 def handler(event, context, include_password=False):

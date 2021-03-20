@@ -1,7 +1,7 @@
 access_rights:
   Type: AWS::DynamoDB::Table
   Properties:
-    TableName: TEAMO_ACCESS_RIGHTS
+    TableName: DEEPN_ACCESS_RIGHTS
     AttributeDefinitions:
       - AttributeName: user_id
         AttributeType: S

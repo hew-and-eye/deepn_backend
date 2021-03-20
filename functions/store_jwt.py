@@ -1,7 +1,7 @@
 import boto3
 
 dynamodb = boto3.client("dynamodb")
-TABLE_NAME = "MBL_ACCESS_TOKENS"
+TABLE_NAME = "DEEPN_ACCESS_TOKENS"
 
 
 def handler(event):
