@@ -1,69 +1,39 @@
 import boto3
 import uuid
 from json import loads
-
-from functions.get_user import handler as get_user
+from boto3.dynamodb.conditions import Key
 
 dynamodb = boto3.client("dynamodb")
-TABLE_NAME = "DEEPN_USERS"
+MODULES_TABLE_NAME = "DEEPN_MODULES"
 
-
-def handler(event, context):
+def handler(event, context, include_password=False):
     try:
-        params = event.get("body")
-        attribute_values = {}
-        attribute_values[":u"] = _format(params["name"])
-        params = event.get("body")
-        username = params.get("username")
-        user_id = event["enhancedAuthContext"]["user_id"]
-        if user_id:
-            task_ids = dynamodb.query(
-                TableName=ACCESS_TABLE_NAME,
-                KeyConditionExpression="user_id = :user_id",
-                ExpressionAttributeValues={":user_id": _format(user_id)},
-                IndexName="UserId",
+        response = dynamodb.scan(
+            TableName=MODULES_TABLE_NAME,
+            Select='ALL_ATTRIBUTES'
             )
-        print("task find results", task_ids)
-        task_ids = _get_formatted_task_ids(task_ids)
-        print("going to query", _format(task_ids, "L"))
-        expression_attribute_values = {}
-        filter_expression = "#tid IN ("
-        for index, tid in enumerate(task_ids):
-            name = ":t" + str(index)
-            expression_attribute_values[name] = _format(tid)
-            if index:
-                filter_expression += ", " + name
-            else:
-                filter_expression += name
-        filter_expression += ")"
-        additional_scan_args = {}
-        exclusive_start_key = (
-            {"id": _format(params["page_id"])}
-            if params.get("page_id")
-            else None
-        )
-        if exclusive_start_key:
-            additional_scan_args["ExclusiveStartKey"] = exclusive_start_key
-        tasks = dynamodb.scan(
-            TableName=TASK_TABLE_NAME,
-            FilterExpression=filter_expression,
-            ExpressionAttributeValues=expression_attribute_values,
-            ExpressionAttributeNames={"#tid": "id"},
-            **additional_scan_args,
-        )
-        tasks["Items"] = _get_formatted_tasks(tasks["Items"])
-        next_page_id = tasks["Items"][-1]["id"] if tasks["Items"] else None
-        result = {
-            "task_ids": task_ids,
-            "results": tasks,
-            "user_id": user_id,
-            "next_page_id": next_page_id,
-        }
+        result = _get_formatted_modules(response["Items"])
     except Exception as e:
-        print("Error while getting tasks", e, event)
+        print("Error while getting find_modules", e, event)
         result = {
-            "error": str(e),
-            "fe": filter_expression,
-            "eav": expression_attribute_values,
+            "error": str(e)
         }
     return result
+
+def _format(value, type="S"):
+    return {type: value}
+
+def _get_formatted_modules(modules):
+    print("some modules", modules)
+    return [
+        {
+            "id": x["id"]["S"] if x.get("id") else "",
+            "name": x["name"]["S"] if x.get("name") else "",
+            "dependencies": x["dependencies"]["M"] if x.get("dependencies") else "",
+            "templates": x["templates"]["S"] if x.get("templates") else "",
+            "owner": x["owner"]["S"] if x.get("owner") else "",
+            "reactions": x["reactions"]["S"] if x.get("reactions") else "",
+        }
+        for x in modules
+    ]
+

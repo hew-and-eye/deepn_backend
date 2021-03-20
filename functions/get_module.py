@@ -12,18 +12,30 @@ def handler(event, context):
     try:
         params = event.get("body")
         attribute_values = {}
-        attribute_values[":u"] = _format(params["name"])
-        expression = "#name = :u"
-        index_name = "Name"
-        module = dynamodb.query(
-            TableName=TABLE_NAME,
-            IndexName=index_name,
-            KeyConditionExpression=expression,
-            ExpressionAttributeValues=attribute_values,
-            ExpressionAttributeNames={"#name": "name"}
-        )
-        print("got module: ", module)
-        result = {"results": _get_formatted_result(module['Items'][0])}
+        if "name" in params.keys():
+            attribute_values[":u"] = _format(params["name"])
+            expression = "#name = :u"
+            index_name = "Name"
+            module = dynamodb.query(
+                TableName=TABLE_NAME,
+                IndexName=index_name,
+                KeyConditionExpression=expression,
+                ExpressionAttributeValues=attribute_values,
+                ExpressionAttributeNames={"#name": "name"}
+            )
+            print("got module: ", module)
+            result = {"results": _get_formatted_result(module['Items'][0])}
+        else:
+            attribute_values[":u"] = _format(params["id"])
+            expression = "#id = :u"
+            module = dynamodb.query(
+                TableName=TABLE_NAME,
+                KeyConditionExpression=expression,
+                ExpressionAttributeValues=attribute_values,
+                ExpressionAttributeNames={"#id": "id"}
+            )
+            print("got module: ", module)
+            result = {"results": _get_formatted_result(module['Items'][0])}
     except Exception as e:
         print("Error while getting module", e, event)
         result = {"error": str(e), "event": event}
