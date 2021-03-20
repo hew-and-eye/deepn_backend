@@ -1,3 +1,7 @@
 # Ignore serverless manifest files
 serverless.manifest.json
+.serverless
+node_modules
+# Ignore serverless manifest files
+serverless.manifest.json
 .serverless/manifest.json
